@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 import { scrollToId } from "@/lib/scroll";
 import { MapPin } from "lucide-react";
 
-const heroImage = "/hero.jpeg";
+const heroImage = "/optimized/ext-01-hero.jpeg";
 
 export default function Hero() {
   return (

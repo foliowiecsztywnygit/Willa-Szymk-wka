@@ -75,6 +75,19 @@ export default function Footer(props: { className?: string }) {
                   <span className="block text-cream-200/70">Otwórz mapę Google</span>
                 </span>
               </a>
+              <div className="overflow-hidden rounded-2xl ring-1 ring-white/10">
+                <iframe
+                  title="Mapa – Willa Szymkówka"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2602.363507625069!2d19.945800577068887!3d49.288456770344546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4715f2bd7541b54d%3A0x37fac10a567a9e2c!2sWilla%20Szymk%C3%B3wka!5e0!3m2!1spl!2spl!4v1779375419988!5m2!1spl!2spl"
+                  width="600"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="h-56 w-full md:h-64"
+                />
+              </div>
             </div>
           </aside>
 

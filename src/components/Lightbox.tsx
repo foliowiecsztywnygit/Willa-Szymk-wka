@@ -70,6 +70,7 @@ export default function Lightbox(props: {
               {current.category}
             </div>
             <div className="mt-2 font-display text-2xl tracking-wide text-cream-100">{current.title}</div>
+            <div className="mt-3 max-w-3xl text-sm leading-relaxed text-cream-200/80">{current.alt}</div>
           </div>
         </div>
 

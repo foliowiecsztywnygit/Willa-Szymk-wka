@@ -21,11 +21,11 @@ export default function PremiumGallery(props: { initialCategory?: GalleryCategor
         <div>
           <div className="text-xs font-semibold tracking-[0.18em] text-cream-200/70">Galeria premium</div>
           <h2 className="mt-3 font-display text-3xl tracking-wide text-cream-100 md:text-4xl">
-            Willa. Ogród. Tatry.
+            Willa. Pokoje. Tatry.
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-cream-200/80">
-            Prawdziwe zdjęcia Willi Szymkówka: fasada, ogród i najbliższe otoczenie – w spokojnym, zielonym
-            Zakopanem, tuż przy Dolinie Strążyskiej.
+            Zobacz prawdziwe ujęcia: willa i ogród, pokoje w regionalnym klimacie oraz łazienka. Spokojne,
+            zielone Zakopane – tuż przy Dolinie Strążyskiej.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

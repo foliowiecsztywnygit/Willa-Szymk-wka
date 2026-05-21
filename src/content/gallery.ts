@@ -1,4 +1,6 @@
-export type GalleryCategory = "Willa" | "Ogród" | "Widoki";
+import { optimizedPhotos, type OptimizedPhotoCategory } from "@/content/optimizedPhotos";
+
+export type GalleryCategory = Exclude<OptimizedPhotoCategory, "Hero">;
 
 export type GalleryItem = {
   id: string;
@@ -8,33 +10,20 @@ export type GalleryItem = {
   src: string;
 };
 
-export const galleryItems: GalleryItem[] = [
-  {
-    id: "room-2",
-    category: "Willa",
-    title: "Willa – ujęcie frontowe",
-    alt: "Willa Szymkówka – front budynku w stylu podhalańskim",
-    src: "/2.jpeg",
-  },
-  {
-    id: "bath-1",
-    category: "Ogród",
-    title: "Ogród przy willi",
-    alt: "Zadbany ogród przy Willi Szymkówka",
-    src: "/3.jpeg",
-  },
-  {
-    id: "bath-2",
-    category: "Widoki",
-    title: "Zieleń i Tatry w tle",
-    alt: "Zielona okolica Zakopanego z widokiem na Tatry",
-    src: "/1.jpeg",
-  },
-];
+export const galleryItems: GalleryItem[] = optimizedPhotos
+  .filter((p) => p.category !== "Hero")
+  .map((p) => ({
+    id: p.id,
+    category: p.category as GalleryCategory,
+    title: p.title,
+    alt: p.description,
+    src: p.src,
+  }));
 
 export const galleryCategories: GalleryCategory[] = [
   "Willa",
   "Ogród",
-  "Widoki",
+  "Pokoje",
+  "Łazienki",
 ];
 
