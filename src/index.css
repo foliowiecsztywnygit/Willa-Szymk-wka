@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ws-wood-texture: url("https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=subtle%20luxurious%20aged%20dark%20wooden%20planks%20texture%2C%20traditional%20highlander%20wood%2C%20seamless%20pattern%2C%20top-down%2C%20matte%2C%20high%20detail%2C%20photorealistic%2C%20no%20text&image_size=landscape_16_9");
+
+  font-family: Onest, ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(45, 90, 78, 0.18), rgba(0, 0, 0, 0)),
+    radial-gradient(900px 600px at 80% 20%, rgba(200, 164, 90, 0.12), rgba(0, 0, 0, 0)),
+    #070605;
+  color: #f7f0e6;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--ws-wood-texture);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: -1;
+}
+
+::selection {
+  background: rgba(200, 164, 90, 0.35);
+}
+
+.ws-wood {
+  background-image: var(--ws-wood-texture);
+  background-size: cover;
+  background-position: center;
+}
+
+.ws-surface {
+  position: relative;
+  overflow: hidden;
+}
+
+.ws-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--ws-wood-texture);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}

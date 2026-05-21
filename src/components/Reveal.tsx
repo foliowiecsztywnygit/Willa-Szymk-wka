@@ -1,0 +1,21 @@
+import { cn } from "@/lib/utils";
+import { useInView } from "@/hooks/useInView";
+import { type ReactNode } from "react";
+
+export default function Reveal(props: { children: ReactNode; className?: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>();
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "transition-all duration-700 will-change-transform",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+        props.className,
+      )}
+    >
+      {props.children}
+    </div>
+  );
+}
+
