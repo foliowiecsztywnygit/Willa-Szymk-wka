@@ -101,13 +101,6 @@ export const optimizedPhotos: OptimizedPhoto[] = [
     src: "/optimized/int-09-room-bed-stairs.jpeg",
   },
   {
-    id: "int-10",
-    category: "Pokoje",
-    title: "Strefa dzienna – sofa i drzwi balkonowe (wieczór)",
-    description: "Kącik wypoczynkowy z sofą, drzwiami na balkon i regionalnymi zasłonami.",
-    src: "/optimized/int-10-room-lounge-balcony-door.jpeg",
-  },
-  {
     id: "int-11",
     category: "Pokoje",
     title: "Pokój – szerokie ujęcie (łóżko, TV, sofa)",

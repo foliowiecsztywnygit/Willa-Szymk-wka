@@ -2,18 +2,41 @@ import Lightbox from "@/components/Lightbox";
 import Reveal from "@/components/Reveal";
 import { galleryCategories, galleryItems, type GalleryCategory, type GalleryItem } from "@/content/gallery";
 import { cn } from "@/lib/utils";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function PremiumGallery(props: { initialCategory?: GalleryCategory; items?: GalleryItem[] }) {
   const [category, setCategory] = useState<GalleryCategory | "Wszystko">(props.initialCategory ?? "Wszystko");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia("(min-width: 768px)").matches);
+  const [expandedMobile, setExpandedMobile] = useState(() => window.matchMedia("(min-width: 768px)").matches);
 
   const items = props.items ?? galleryItems;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => {
+      setIsDesktop(mq.matches);
+      if (mq.matches) setExpandedMobile(true);
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) setExpandedMobile(false);
+  }, [category, isDesktop]);
 
   const filtered = useMemo(() => {
     if (category === "Wszystko") return items;
     return items.filter((i) => i.category === category);
   }, [category, items]);
+
+  const visible = useMemo(() => {
+    if (isDesktop) return filtered;
+    if (expandedMobile) return filtered;
+    return filtered.slice(0, 5);
+  }, [expandedMobile, filtered, isDesktop]);
 
   return (
     <div className="grid gap-8">
@@ -60,7 +83,7 @@ export default function PremiumGallery(props: { initialCategory?: GalleryCategor
       </Reveal>
 
       <div className="-mx-4 grid gap-3 md:-mx-6 md:grid-cols-12 md:gap-4">
-        {filtered.map((item, idx) => (
+        {visible.map((item, idx) => (
           <Reveal
             key={item.id}
             className={cn(
@@ -94,11 +117,23 @@ export default function PremiumGallery(props: { initialCategory?: GalleryCategor
         ))}
       </div>
 
+      {filtered.length > 5 && (
+        <div className="md:hidden">
+          <button
+            type="button"
+            onClick={() => setExpandedMobile((v) => !v)}
+            className="w-full rounded-2xl bg-white/6 px-5 py-3 text-sm font-semibold text-cream-100/85 ring-1 ring-white/10 transition hover:bg-white/8 hover:ring-white/20"
+          >
+            {expandedMobile ? "Pokaż mniej zdjęć" : `Pokaż więcej zdjęć (${filtered.length - 5})`}
+          </button>
+        </div>
+      )}
+
       {openId && (
         <Lightbox
           openId={openId}
           onOpenIdChange={setOpenId}
-          items={filtered}
+          items={visible}
           onClose={() => setOpenId(null)}
         />
       )}
