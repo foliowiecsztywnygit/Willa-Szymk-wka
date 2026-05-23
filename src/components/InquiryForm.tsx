@@ -34,9 +34,10 @@ const initialState: FormState = {
 
 function validate(s: FormState): FormErrors {
   const e: FormErrors = {};
+  const digits = s.phone.replace(/\D/g, "").slice(0, 9);
   if (!s.fullName.trim()) e.fullName = "Podaj imię i nazwisko.";
   if (!/^\S+@\S+\.\S+$/.test(s.email)) e.email = "Podaj poprawny adres e-mail.";
-  if (!s.phone.trim()) e.phone = "Podaj numer telefonu.";
+  if (digits.length !== 9) e.phone = "Podaj numer telefonu (9 cyfr).";
   if (!isValidIsoDate(s.arrival)) e.arrival = "Wybierz datę przyjazdu.";
   if (!isValidIsoDate(s.departure)) e.departure = "Wybierz datę wyjazdu.";
   if (isValidIsoDate(s.arrival) && isValidIsoDate(s.departure) && compareIsoDates(s.arrival, s.departure) >= 0) {
@@ -104,6 +105,18 @@ export default function InquiryForm(props: { id?: string; className?: string }) 
       setState((s) => ({ ...s, [key]: e.target.value }));
       if (submitted) setErrors((prev) => ({ ...prev, [key]: undefined }));
     };
+
+  const onPhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 9);
+    const next =
+      digits.length <= 3
+        ? digits
+        : digits.length <= 6
+          ? `${digits.slice(0, 3)}-${digits.slice(3)}`
+          : `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+    setState((s) => ({ ...s, phone: next }));
+    if (submitted) setErrors((prev) => ({ ...prev, phone: undefined }));
+  };
 
   const onDateChange = (key: "arrival" | "departure") => (value: string) => {
     setState((s) => ({ ...s, [key]: value }));
@@ -198,14 +211,16 @@ export default function InquiryForm(props: { id?: string; className?: string }) 
                 <Field label="Numer telefonu" error={errors.phone}>
                   <input
                     value={state.phone}
-                    onChange={onChange("phone")}
+                    onChange={onPhoneChange}
                     className={cn(
                       "h-12 w-full rounded-2xl bg-wood-950/60 px-4 text-sm text-cream-100 ring-1 ring-white/10 transition focus:outline-none focus:ring-2 focus:ring-brass-400/60",
                       errors.phone && "ring-brass-400/40",
                     )}
                     autoComplete="tel"
-                    inputMode="tel"
+                    placeholder="___-___-___"
+                    inputMode="numeric"
                     type="tel"
+                    maxLength={11}
                   />
                 </Field>
 

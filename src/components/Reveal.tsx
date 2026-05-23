@@ -9,8 +9,8 @@ export default function Reveal(props: { children: ReactNode; className?: string 
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 will-change-transform",
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+        "transition-[opacity,transform] duration-700",
+        inView ? "opacity-100" : "opacity-0 translate-y-4",
         props.className,
       )}
     >
