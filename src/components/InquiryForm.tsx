@@ -48,6 +48,17 @@ function validate(s: FormState): FormErrors {
   return e;
 }
 
+function Field(p: { label: string; hint?: string; error?: string; children: ReactNode }) {
+  return (
+    <label className="grid gap-2">
+      <span className="text-xs font-semibold tracking-[0.18em] text-cream-200/70">{p.label}</span>
+      {p.children}
+      {p.hint ? <span className="text-xs text-cream-200/60">{p.hint}</span> : null}
+      {p.error ? <span className="text-xs font-semibold text-brass-300">{p.error}</span> : null}
+    </label>
+  );
+}
+
 export default function InquiryForm(props: { id?: string; className?: string }) {
   const pushToast = useToastStore((s) => s.push);
   const [state, setState] = useState<FormState>(initialState);
@@ -122,20 +133,6 @@ export default function InquiryForm(props: { id?: string; className?: string }) 
     setState((s) => ({ ...s, [key]: value }));
     if (submitted) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
-
-  const Field = (p: {
-    label: string;
-    hint?: string;
-    error?: string;
-    children: ReactNode;
-  }) => (
-    <label className="grid gap-2">
-      <span className="text-xs font-semibold tracking-[0.18em] text-cream-200/70">{p.label}</span>
-      {p.children}
-      {p.hint ? <span className="text-xs text-cream-200/60">{p.hint}</span> : null}
-      {p.error ? <span className="text-xs font-semibold text-brass-300">{p.error}</span> : null}
-    </label>
-  );
 
   return (
     <section id={props.id} className={cn("relative overflow-hidden", props.className)}>

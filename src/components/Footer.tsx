@@ -108,12 +108,12 @@ export default function Footer(props: { className?: string }) {
         </div>
 
         <div className="relative border-t border-white/10">
-          <div className="mx-auto flex max-w-6xl items-center justify-center px-4 py-5 md:px-6">
+          <div className="mx-auto flex max-w-6xl items-center justify-center px-4 py-5 pb-[calc(env(safe-area-inset-bottom)+86px)] md:px-6 md:py-5 md:pb-5">
             <a
               href="https://www.webbroskidev.pl"
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-semibold tracking-wide text-cream-200/70 transition hover:text-cream-100"
+              className="text-xs font-semibold tracking-wide text-cream-200/80 underline decoration-white/15 underline-offset-4 transition hover:text-cream-100 hover:decoration-white/30"
             >
               Wykonanie i Projekt: Krzysztof Żebrowski
             </a>
