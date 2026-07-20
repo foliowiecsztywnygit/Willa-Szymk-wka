@@ -74,7 +74,14 @@ export default function Wpis() {
                 if (s.type === "h2") {
                   return (
                     <Reveal key={idx}>
-                      <h2 className="font-display text-2xl tracking-wide text-cream-100">{s.text}</h2>
+                      <h2 className="mt-8 font-display text-2xl tracking-wide text-cream-100">{s.text}</h2>
+                    </Reveal>
+                  );
+                }
+                if (s.type === "h3") {
+                  return (
+                    <Reveal key={idx}>
+                      <h3 className="mt-6 font-display text-xl tracking-wide text-cream-100/90">{s.text}</h3>
                     </Reveal>
                   );
                 }
@@ -91,7 +98,10 @@ export default function Wpis() {
                 }
                 return (
                   <Reveal key={idx}>
-                    <p className="text-sm leading-relaxed text-cream-200/85 md:text-base">{s.text}</p>
+                    <p 
+                      className="text-sm leading-relaxed text-cream-200/85 md:text-base [&>strong]:font-semibold [&>strong]:text-cream-100" 
+                      dangerouslySetInnerHTML={{ __html: s.text }}
+                    />
                   </Reveal>
                 );
               })}
