@@ -7,6 +7,7 @@ import { site } from "@/content/site";
 import { ArrowLeft } from "lucide-react";
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 export default function Wpis() {
   const params = useParams();
@@ -69,43 +70,31 @@ export default function Wpis() {
           </Reveal>
 
           <article className="mt-10 max-w-3xl">
-            <div className="grid gap-6">
-              {post.sections.map((s, idx) => {
-                if (s.type === "h2") {
-                  return (
-                    <Reveal key={idx}>
-                      <h2 className="mt-8 font-display text-2xl tracking-wide text-cream-100">{s.text}</h2>
-                    </Reveal>
-                  );
-                }
-                if (s.type === "h3") {
-                  return (
-                    <Reveal key={idx}>
-                      <h3 className="mt-6 font-display text-xl tracking-wide text-cream-100/90">{s.text}</h3>
-                    </Reveal>
-                  );
-                }
-                if (s.type === "ul") {
-                  return (
-                    <Reveal key={idx}>
-                      <ul className="grid list-disc gap-2 pl-5 text-sm leading-relaxed text-cream-200/85">
-                        {s.items.map((it) => (
-                          <li key={it}>{it}</li>
-                        ))}
-                      </ul>
-                    </Reveal>
-                  );
-                }
-                return (
-                  <Reveal key={idx}>
-                    <p 
-                      className="text-sm leading-relaxed text-cream-200/85 md:text-base [&>strong]:font-semibold [&>strong]:text-cream-100" 
-                      dangerouslySetInnerHTML={{ __html: s.text }}
-                    />
-                  </Reveal>
-                );
-              })}
-            </div>
+            <Reveal>
+              <div className="flex flex-col gap-6">
+                <ReactMarkdown
+                  components={{
+                    h2: ({ ...props }) => (
+                      <h2 className="mt-2 font-display text-2xl tracking-wide text-cream-100" {...props} />
+                    ),
+                    h3: ({ ...props }) => (
+                      <h3 className="mt-1 font-display text-xl tracking-wide text-cream-100/90" {...props} />
+                    ),
+                    ul: ({ ...props }) => (
+                      <ul className="grid list-disc gap-2 pl-5 text-sm leading-relaxed text-cream-200/85" {...props} />
+                    ),
+                    p: ({ ...props }) => (
+                      <p
+                        className="text-sm leading-relaxed text-cream-200/85 md:text-base [&>strong]:font-semibold [&>strong]:text-cream-100"
+                        {...props}
+                      />
+                    ),
+                  }}
+                >
+                  {post.content}
+                </ReactMarkdown>
+              </div>
+            </Reveal>
           </article>
 
           <section className="mt-14">
