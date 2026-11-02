@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoUrl from "../../logo.png";
 
 const nav = [
+  { to: "/rezerwacja", label: "Rezerwacja" },
   { to: "/pokoje", label: "Pokoje" },
   { to: "/galeria", label: "Galeria" },
   { to: "/blog", label: "Blog" },
@@ -24,10 +25,10 @@ export default function Navbar() {
 
   const onCta = () => {
     if (isHome) {
-      scrollToId("zapytanie");
+      scrollToId("rezerwacja");
       return;
     }
-    navigate("/#zapytanie");
+    navigate("/#rezerwacja");
   };
 
   return (
@@ -65,14 +66,17 @@ export default function Navbar() {
               </Link>
             ))}
             <Button className="ml-2" onClick={onCta}>
-              Zapytaj o nocleg
+              Zarezerwuj online
             </Button>
           </nav>
 
-          <div className="md:hidden" />
+          <div className="md:hidden">
+            <Button className="px-3 py-2 text-xs" onClick={onCta}>
+              Rezerwuj
+            </Button>
+          </div>
         </div>
       </div>
     </header>
   );
 }
-

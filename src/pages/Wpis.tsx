@@ -104,11 +104,14 @@ export default function Wpis() {
                 Chcesz odpocząć blisko Doliny Strążyskiej?
               </div>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-cream-200/80">
-                Wyślij krótkie zapytanie o termin – odpowiemy z dostępnością i propozycją najlepszego wariantu pobytu.
+                Sprawdź wolne terminy i zarezerwuj pobyt bezpośrednio w oficjalnym systemie rezerwacji w najlepszej cenie.
               </p>
-              <div className="mt-7">
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link to="/rezerwacja">
+                  <Button>Zarezerwuj online</Button>
+                </Link>
                 <Link to="/kontakt#zapytanie">
-                  <Button>Sprawdź dostępność</Button>
+                  <Button variant="ghost">Formularz zapytania</Button>
                 </Link>
               </div>
             </Reveal>
@@ -118,4 +121,3 @@ export default function Wpis() {
     </>
   );
 }
-

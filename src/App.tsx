@@ -5,6 +5,7 @@ import Blog from "@/pages/Blog";
 import Galeria from "@/pages/Galeria";
 import Kontakt from "@/pages/Kontakt";
 import Pokoje from "@/pages/Pokoje";
+import Rezerwacja from "@/pages/Rezerwacja";
 import Wpis from "@/pages/Wpis";
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/rezerwacja" element={<Rezerwacja />} />
           <Route path="/pokoje" element={<Pokoje />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/blog" element={<Blog />} />

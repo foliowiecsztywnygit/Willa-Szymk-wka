@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import logoUrl from "../../logo.png";
 
 const quick = [
+  { to: "/rezerwacja", label: "Rezerwacja online" },
   { to: "/pokoje", label: "Pokoje" },
   { to: "/galeria", label: "Galeria" },
   { to: "/blog", label: "Blog" },
-  { to: "/kontakt", label: "Kontakt / Rezerwacja" },
+  { to: "/kontakt", label: "Kontakt" },
 ] as const;
 
 export default function Footer(props: { className?: string }) {
@@ -36,7 +37,7 @@ export default function Footer(props: { className?: string }) {
             </div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-cream-200/80">
               Otwarte całą dobę, umiarkowane ceny, świetne warunki. Jeśli szukasz spokojnej bazy blisko
-              Doliny Strążyskiej i cenisz czystość oraz komfort – wyślij zapytanie o nocleg.
+              Doliny Strążyskiej i cenisz czystość oraz komfort – zarezerwuj nocleg online.
             </p>
           </div>
 
@@ -123,4 +124,3 @@ export default function Footer(props: { className?: string }) {
     </footer>
   );
 }
-

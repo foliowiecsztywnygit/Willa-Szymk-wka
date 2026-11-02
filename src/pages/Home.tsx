@@ -1,4 +1,5 @@
 import BlogTeasers from "@/components/BlogTeasers";
+import BookingCalendar from "@/components/BookingCalendar";
 import FAQAccordion from "@/components/FAQAccordion";
 import Hero from "@/components/Hero";
 import InquiryForm from "@/components/InquiryForm";
@@ -20,6 +21,8 @@ export default function Home() {
   useEffect(() => {
     if (location.hash === "#zapytanie") {
       setTimeout(() => scrollToId("zapytanie"), 0);
+    } else if (location.hash === "#rezerwacja") {
+      setTimeout(() => scrollToId("rezerwacja"), 0);
     }
   }, [location.hash]);
 
@@ -60,13 +63,16 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Willa Szymkówka – Zakopane | Zapytaj o nocleg"
-        description="Luksusowy wypoczynek w Zakopanem w regionalnym klimacie. Spokój, czystość, widok na Tatry i bliskość Doliny Strążyskiej. Wyślij zapytanie o nocleg."
+        title="Willa Szymkówka – Zakopane | Rezerwacja online"
+        description="Luksusowy wypoczynek w Zakopanem w regionalnym klimacie. Spokój, czystość, widok na Tatry i bliskość Doliny Strążyskiej. Zarezerwuj nocleg online w najlepszej cenie."
         jsonLd={jsonLd}
       />
       <main className="pb-24 md:pb-0">
         <Hero />
-        <MobileStickyCta onClick={() => scrollToId("zapytanie")} />
+        <MobileStickyCta onClick={() => scrollToId("rezerwacja")} />
+
+        {/* Online Reservation System */}
+        <BookingCalendar id="rezerwacja" />
 
         <section className="ws-surface py-12 md:py-16">
           <Ornament variant="a" className="-right-24 -top-28 h-72 w-72 opacity-[0.12] md:h-[440px] md:w-[440px]" />
@@ -108,6 +114,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Traditional inquiry form for custom questions */}
         <InquiryForm id="zapytanie" />
       </main>
     </>

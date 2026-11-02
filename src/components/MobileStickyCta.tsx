@@ -40,10 +40,9 @@ export default function MobileStickyCta(props: { onClick: () => void; className?
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
       <div className="pointer-events-auto mx-auto max-w-6xl px-4 pb-[calc(env(safe-area-inset-bottom)+14px)] pt-4">
         <Button onClick={props.onClick} className="w-full justify-center">
-          Zapytaj o nocleg
+          Zarezerwuj online
         </Button>
       </div>
     </div>
   );
 }
-
