@@ -71,9 +71,6 @@ export default function Home() {
         <Hero />
         <MobileStickyCta onClick={() => scrollToId("rezerwacja")} />
 
-        {/* Online Reservation System */}
-        <BookingCalendar id="rezerwacja" />
-
         <section className="ws-surface py-12 md:py-16">
           <Ornament variant="a" className="-right-24 -top-28 h-72 w-72 opacity-[0.12] md:h-[440px] md:w-[440px]" />
           <Ornament variant="b" className="-left-28 bottom-6 h-64 w-64 opacity-[0.10] md:h-[380px] md:w-[380px]" />
@@ -116,6 +113,9 @@ export default function Home() {
 
         {/* Traditional inquiry form for custom questions */}
         <InquiryForm id="zapytanie" />
+
+        {/* Widżet rezerwacyjny na samym dole */}
+        <BookingCalendar id="rezerwacja" />
       </main>
     </>
   );

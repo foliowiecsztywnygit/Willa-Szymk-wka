@@ -112,11 +112,11 @@ export default function Pokoje() {
           </div>
         </section>
 
-        {/* Online Reservation System */}
-        <BookingCalendar id="rezerwacja" />
-
         {/* Traditional inquiry form */}
         <InquiryForm id="zapytanie" />
+
+        {/* Widżet rezerwacyjny na samym dole */}
+        <BookingCalendar id="rezerwacja" />
       </main>
     </>
   );

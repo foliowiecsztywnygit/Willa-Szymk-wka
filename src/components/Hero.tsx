@@ -3,25 +3,72 @@ import DatePickerInput from "@/components/DatePickerInput";
 import Ornament from "@/components/Ornament";
 import Reveal from "@/components/Reveal";
 import { scrollToId } from "@/lib/scroll";
+import { buildBookingUrl } from "@/lib/booking";
+import { compareIsoDates, isValidIsoDate } from "@/lib/dates";
 import { useBookingStore } from "@/store/booking";
-import { Calendar, MapPin, Users } from "lucide-react";
+import { Calendar, ExternalLink, MapPin, Users } from "lucide-react";
 import { useState } from "react";
 
 const heroImage = "/optimized/ext-01-hero.jpeg";
 
 export default function Hero() {
-  const { arrival, departure, adults, setBookingData } = useBookingStore();
+  const { arrival, departure, adults } = useBookingStore();
   const [heroArrival, setHeroArrival] = useState(arrival);
   const [heroDeparture, setHeroDeparture] = useState(departure);
   const [heroAdults, setHeroAdults] = useState(adults);
 
-  const onQuickSearch = () => {
-    setBookingData({
-      arrival: heroArrival,
-      departure: heroDeparture,
-      adults: heroAdults,
+  const redirectToBooking = (arr?: string, dep?: string, adu?: string) => {
+    const finalArr = arr ?? heroArrival;
+    const finalDep = dep ?? heroDeparture;
+    const finalAdu = adu ?? heroAdults;
+
+    const hasBothDates =
+      finalArr &&
+      finalDep &&
+      isValidIsoDate(finalArr) &&
+      isValidIsoDate(finalDep) &&
+      compareIsoDates(finalArr, finalDep) < 0;
+
+    const url = buildBookingUrl({
+      arrival: finalArr || undefined,
+      departure: finalDep || undefined,
+      adults: finalAdu,
+      step: hasBothDates ? "rooms" : undefined,
     });
-    scrollToId("rezerwacja");
+
+    window.location.href = url;
+  };
+
+  const handleArrivalChange = (arr: string) => {
+    setHeroArrival(arr);
+    if (
+      heroDeparture &&
+      isValidIsoDate(arr) &&
+      isValidIsoDate(heroDeparture) &&
+      compareIsoDates(arr, heroDeparture) < 0
+    ) {
+      setTimeout(() => {
+        redirectToBooking(arr, heroDeparture);
+      }, 400);
+    }
+  };
+
+  const handleDepartureChange = (dep: string) => {
+    setHeroDeparture(dep);
+    if (
+      heroArrival &&
+      isValidIsoDate(heroArrival) &&
+      isValidIsoDate(dep) &&
+      compareIsoDates(heroArrival, dep) < 0
+    ) {
+      setTimeout(() => {
+        redirectToBooking(heroArrival, dep);
+      }, 400);
+    }
+  };
+
+  const onQuickSearch = () => {
+    redirectToBooking();
   };
 
   return (
@@ -59,9 +106,9 @@ export default function Hero() {
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <Button onClick={() => scrollToId("rezerwacja")}>Zarezerwuj online</Button>
+                  <Button onClick={() => scrollToId("rezerwacja")}>Zobacz widżet rezerwacji</Button>
                   <Button variant="ghost" onClick={() => scrollToId("zapytanie")}>
-                    Zapytaj o nocleg
+                    Formularz zapytania
                   </Button>
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/6 px-5 py-3 text-sm font-semibold text-cream-100/85 ring-1 ring-white/10">
                     <MapPin className="h-4 w-4 text-brass-400" />
@@ -69,7 +116,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Quick Reservation Search Bar */}
+                {/* Quick Reservation Search Bar - Redirects directly to booking.brosystems.pl */}
                 <div className="mt-8 rounded-3xl bg-wood-950/80 p-4 ring-1 ring-white/15 backdrop-blur-md md:p-5">
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-12 lg:items-end">
                     <div className="lg:col-span-4">
@@ -78,7 +125,7 @@ export default function Hero() {
                       </span>
                       <DatePickerInput
                         value={heroArrival}
-                        onChange={setHeroArrival}
+                        onChange={handleArrivalChange}
                         placeholder="Wybierz termin"
                       />
                     </div>
@@ -89,7 +136,7 @@ export default function Hero() {
                       </span>
                       <DatePickerInput
                         value={heroDeparture}
-                        onChange={setHeroDeparture}
+                        onChange={handleDepartureChange}
                         min={heroArrival || undefined}
                         placeholder="Wybierz termin"
                       />
@@ -119,8 +166,9 @@ export default function Hero() {
                     </div>
 
                     <div className="lg:col-span-2">
-                      <Button onClick={onQuickSearch} className="h-12 w-full justify-center">
-                        Szukaj pokoju
+                      <Button onClick={onQuickSearch} className="h-12 w-full justify-center gap-1.5">
+                        <span>Zarezerwuj</span>
+                        <ExternalLink className="h-3.5 w-3.5 text-brass-400" />
                       </Button>
                     </div>
                   </div>
